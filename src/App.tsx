@@ -1,6 +1,6 @@
 import React from "react";
 import FsmDemo from "./components/FsmDemo";
-import { Theme } from "./atoms";
+import { Footer, Theme } from "./atoms";
 
 export default function App() {
   return (
@@ -18,10 +18,10 @@ export default function App() {
       <main>
         <FsmDemo />
       </main>
-      <footer>
+      <Footer>
         Created by{" "}
         <a href={"https://github.com/daniel-hauser"}>Daniel Hauser</a>
-      </footer>
+      </Footer>
     </>
   );
 }

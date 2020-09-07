@@ -27,7 +27,7 @@ function RetractablePen() {
   return (
     <>
       <pre>State is {current}</pre>
-      <button onClick={() => doAction([...allowedActions][0])}>click</button>
+      <button onClick={() => doAction("click")}>click</button>
     </>
   );
 }
@@ -44,6 +44,6 @@ const retractablePen = new FSM(
 );
 
 retractablePen.currentState; // "close"
-retractablePen.doAction("open");
+retractablePen.doAction("click");
 retractablePen.currentState; // "open"
 ```

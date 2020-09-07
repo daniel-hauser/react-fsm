@@ -55,3 +55,4 @@ export function Theme() {
 
 export { Box } from "./Box";
 export { Select } from "./Select";
+export { Footer } from "./Footer";
