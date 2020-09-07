@@ -1,4 +1,4 @@
-import { FSM, StateChangedEvent } from "../FSM";
+import FSM, { StateChangedEvent } from "../index";
 
 describe("Initial state", () => {
   test("Must be a valid state", () => {

@@ -3,7 +3,7 @@ export type ActionName = string;
 export type States = Map<StateName, Actions>;
 export type Actions = Map<ActionName, StateName> | null;
 
-export class FSM extends EventTarget {
+export default class FSM extends EventTarget {
   static EVENTS = {
     stateChanged: "stateChanged",
   };
