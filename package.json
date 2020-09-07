@@ -2,6 +2,8 @@
   "name": "react-fsm",
   "version": "0.1.0",
   "private": true,
+  "repository": "https://github.com/daniel-hauser/react-fsm",
+  "homepage": "/react-fsm",
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
