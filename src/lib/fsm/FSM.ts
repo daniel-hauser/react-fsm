@@ -3,11 +3,16 @@ export type ActionName = string;
 export type States = Map<StateName, Actions>;
 export type Actions = Map<ActionName, StateName> | null;
 
-export class FSM {
+export class FSM extends EventTarget {
+  static EVENTS = {
+    stateChanged: "stateChanged",
+  };
   #states: States;
   #currentState: StateName;
 
   constructor(states: States, initial?: StateName) {
+    super();
+
     if (states.size === 0) {
       throw new Error(`states must not be empty`);
     }
@@ -60,6 +65,24 @@ export class FSM {
 
     this.assertValidState(nextState);
 
+    this.dispatchEvent(
+      new StateChangedEvent(nextState, action, this.currentState)
+    );
+
     this.#currentState = nextState;
+  }
+}
+
+export class StateChangedEvent<StateName> extends Event {
+  prev: StateName;
+  action: ActionName;
+  current: StateName;
+
+  constructor(current: StateName, action: ActionName, prev: StateName) {
+    super(FSM.EVENTS.stateChanged);
+
+    this.prev = prev;
+    this.action = action;
+    this.current = current;
   }
 }

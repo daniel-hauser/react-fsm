@@ -1,4 +1,4 @@
-import { FSM } from "../FSM";
+import { FSM, StateChangedEvent } from "../FSM";
 
 describe("Initial state", () => {
   test("Must be a valid state", () => {
@@ -68,6 +68,25 @@ describe("Lifecycle", () => {
     fsm.doAction("goto b");
 
     expect(fsm.currentState).toBe("state b");
+  });
+  test("State changed event is fired on state change", () => {
+    const fsm = new FSM(
+      new Map([
+        ["state a", new Map([["goto b", "state b"]])],
+        ["state b", null],
+      ]),
+      "state a"
+    );
+
+    const onChange = jest.fn();
+    fsm.addEventListener("a", onChange);
+
+    fsm.doAction("goto b");
+
+    expect(fsm.currentState).toEqual("state b");
+    expect(onChange).toBeCalledWith(
+      new StateChangedEvent("state b", "goto b", "state a")
+    );
   });
 });
 
