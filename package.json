@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,7 +14,9 @@
     "@types/react-dom": "^16.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-graph-vis": "^1.0.5",
     "react-scripts": "3.4.3",
+    "react-syntax-highlighter": "^13.5.3",
     "typescript": "^3.8.3"
   },
   "scripts": {
@@ -40,6 +44,8 @@
     ]
   },
   "devDependencies": {
+    "@types/react-syntax-highlighter": "^11.0.5",
+    "@types/vis": "^4.21.20",
     "husky": "^4.3.0",
     "prettier": "^2.1.1",
     "pretty-quick": "^3.0.0"
