@@ -4,8 +4,10 @@ import FSM, { States, ActionName, StateChangedEvent, StateName } from "./FSM";
 type FsmHookResult = [StateName, Pick<FSM, "doAction" | "allowedActions">];
 
 function useFsm(states: States, initialState?: StateName): FsmHookResult {
-  const [_, setCurrentState] = useState<StateName>();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fsm = useMemo<FSM>(() => new FSM(states, initialState), []);
+
+  const [currentState, setCurrentState] = useState<StateName>(fsm.currentState);
   const doAction = useCallback((action: ActionName) => fsm.doAction(action), [
     fsm,
   ]);
@@ -17,11 +19,11 @@ function useFsm(states: States, initialState?: StateName): FsmHookResult {
   useEffect(() => {
     fsm.addEventListener(FSM.EVENTS.stateChanged, onChange);
     return () => fsm.addEventListener(FSM.EVENTS.stateChanged, onChange);
-  }, [fsm]);
+  }, [fsm, onChange]);
 
-  const { allowedActions, currentState } = fsm;
+  const { allowedActions } = fsm;
   return [
-    currentState,
+    currentState!,
     {
       doAction,
       allowedActions,

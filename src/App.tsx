@@ -1,5 +1,4 @@
-import React, { useMemo, useState } from "react";
-import * as demos from "./mock";
+import React from "react";
 import FsmDemo from "./components/FsmDemo";
 import { Theme } from "./atoms";
 

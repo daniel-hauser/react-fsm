@@ -1,6 +1,5 @@
 import FsmView from "./FsmView";
 import React, { useMemo, useState } from "react";
-import { States } from "../lib/fsm";
 import styled from "@emotion/styled";
 import CodeView from "./CodeView";
 import { Box, Select } from "../atoms";
@@ -9,7 +8,7 @@ import * as demos from "../mock";
 export default function () {
   const demoNames = useMemo<Array<keyof typeof demos>>(
     () => Object.keys(demos) as Array<keyof typeof demos>,
-    [demos]
+    []
   );
 
   const [selected, setSelected] = useState<keyof typeof demos>(demoNames[0]);
