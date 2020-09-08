@@ -2,6 +2,9 @@
 
 A react hook for creating Finite-state machines
 
+![test action status](https://github.com/daniel-hauser/react-fsm/workflows/test/badge.svg)
+![github pages action status](https://github.com/daniel-hauser/react-fsm/workflows/github%20pages/badge.svg)
+
 ## Usage
 
 FSM parameters for both the hook and the class are:
@@ -13,7 +16,9 @@ FSM parameters for both the hook and the class are:
 
 Where `State` and `Action` are non-empty strings
 
-### react-hook
+### Examples
+
+#### react-hook
 
 ```javascript
 function RetractablePen() {
@@ -33,7 +38,7 @@ function RetractablePen() {
 }
 ```
 
-### JavaScript class
+#### JavaScript class
 
 ```javascript
 const retractablePen = new FSM(
