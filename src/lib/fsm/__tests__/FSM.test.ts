@@ -79,7 +79,7 @@ describe("Lifecycle", () => {
     );
 
     const onChange = jest.fn();
-    fsm.addEventListener("a", onChange);
+    fsm.addEventListener(FSM.EVENTS.stateChanged, onChange);
 
     fsm.doAction("goto b");
 
