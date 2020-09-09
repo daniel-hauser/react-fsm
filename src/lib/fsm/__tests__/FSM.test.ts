@@ -28,28 +28,26 @@ describe("Initial state", () => {
 });
 
 describe("Lifecycle", () => {
-  test("States must exist", () => {
-    expect(() => new FSM(new Map())).toThrow(/states must not be empty/);
-  });
+  let fsm: FSM;
 
-  test("Action must exist", () => {
-    const fsm = new FSM(
+  beforeEach(() => {
+    fsm = new FSM(
       new Map([
         ["state a", new Map([["goto b", "state b"]])],
         ["state b", null],
       ]),
       "state a"
     );
-    expect(() => fsm.doAction("goto a")).toThrow(
-      'State "state a" has no "goto a" action'
-    );
+  });
 
-    expect(() => fsm.doAction("goto b")).not.toThrow();
+  test("States must exist", () => {
+    expect(() => new FSM(new Map())).toThrow(/states must not be empty/);
+  });
+
+  test("Action must exist", () => {
+    expect(() => fsm.doAction("goto a")).toThrow('has no "goto a" action');
+    fsm.doAction("goto b");
     expect(fsm.currentState).toBe("state b");
-
-    expect(() => fsm.doAction("goto a")).toThrow(
-      'State "state b" has no "goto a" action'
-    );
   });
 
   test("Target state must exist", () => {
@@ -64,26 +62,18 @@ describe("Lifecycle", () => {
   });
 
   test("State is updated correctly", () => {
-    const fsm = new FSM(
-      new Map([
-        ["state a", new Map([["goto b", "state b"]])],
-        ["state b", null],
-      ]),
-      "state a"
-    );
     fsm.doAction("goto b");
 
     expect(fsm.currentState).toBe("state b");
   });
-  test("State changed event is fired on state change", () => {
-    const fsm = new FSM(
-      new Map([
-        ["state a", new Map([["goto b", "state b"]])],
-        ["state b", null],
-      ]),
-      "state a"
-    );
 
+  test("Allowed actions are correct", () => {
+    expect(fsm.allowedActions).toEqual(new Set(["goto b"]));
+    fsm.doAction("goto b");
+    expect(fsm.allowedActions).toEqual(new Set());
+  });
+
+  test("State changed event is fired on state change", () => {
     const onChange = jest.fn();
     fsm.addEventListener(FSM.EVENTS.stateChanged, onChange);
 
@@ -93,21 +83,5 @@ describe("Lifecycle", () => {
     expect(onChange).toBeCalledWith(
       new StateChangedEvent("state b", "goto b", "state a")
     );
-  });
-});
-
-describe("Allowed actions", () => {
-  test("Are correct", () => {
-    const fsm = new FSM(
-      new Map([
-        ["state a", new Map([["goto b", "state b"]])],
-        ["state b", null],
-      ]),
-      "state a"
-    );
-
-    expect(fsm.allowedActions).toEqual(new Set(["goto b"]));
-    fsm.doAction("goto b");
-    expect(fsm.allowedActions).toEqual(new Set());
   });
 });
