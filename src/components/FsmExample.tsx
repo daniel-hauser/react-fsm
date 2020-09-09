@@ -32,20 +32,21 @@ function FsmExample() {
 
   return (
     <ExampleContainer>
-      <CodeView>{codeExample}</CodeView>
       <Box>
         {loading && <FsmDemoLoader />}
         {examples && <FsmDemo examples={examples} />}
       </Box>
+      <CodeView>{codeExample}</CodeView>
     </ExampleContainer>
   );
 }
 
 const ExampleContainer = styled.div`
+  padding: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 `;
 
 export default FsmExample;

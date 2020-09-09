@@ -34,7 +34,7 @@ export default function ({ states }: Props) {
               </ActionButton>
             ))
           ) : (
-            <ActionButton disabled>No actions allowed</ActionButton>
+            <ActionButton disabled>N/A</ActionButton>
           )}
         </pre>
       </Actions>
@@ -46,5 +46,5 @@ const Actions = styled.div`
   display: flex;
 
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
