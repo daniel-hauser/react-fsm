@@ -1,0 +1,93 @@
+[
+  {
+    "name": "Traffic Light",
+    "states": [
+      ["red", [["yellow", "yellow"]]],
+      [
+        "yellow",
+        [
+          ["red", "red"],
+          ["green", "green"]
+        ]
+      ],
+      ["green", [["yellow", "yellow"]]]
+    ]
+  },
+  {
+    "name": "Retractable pen",
+    "states": [
+      ["close", [["click", "open"]]],
+      ["open", [["click", "close"]]]
+    ]
+  },
+  {
+    "name": "Password Validator",
+    "states": [
+      [
+        "locked",
+        [
+          ["press 1", "1"],
+          ["other digit", "locked"]
+        ]
+      ],
+      [
+        "1",
+        [
+          ["press 2", "2"],
+          ["other digit", "locked"]
+        ]
+      ],
+      [
+        "2",
+        [
+          ["press 3", "3"],
+          ["other digit", "locked"]
+        ]
+      ],
+      [
+        "3",
+        [
+          ["press 4", "4"],
+          ["other digit", "locked"]
+        ]
+      ],
+      [
+        "4",
+        [
+          ["press *", "unlocked"],
+          ["other digit", "locked"]
+        ]
+      ],
+      ["unlocked", [["press lock", "locked"]]]
+    ]
+  },
+  {
+    "name": "Interview Process",
+    "states": [
+      [
+        "start",
+        [
+          ["go", "phone interview"],
+          ["no go", "withdrawn"]
+        ]
+      ],
+      [
+        "phone interview",
+        [
+          ["go", "technical interview"],
+          ["no go", "withdrawn"]
+        ]
+      ],
+      ["technical interview", [["go", "final interview"]]],
+      [
+        "final interview",
+        [
+          ["no go", "withdrawn"],
+          ["go", "hired"]
+        ]
+      ],
+      ["hired", [["work", "hired"]]],
+      ["withdrawn", null]
+    ]
+  }
+]

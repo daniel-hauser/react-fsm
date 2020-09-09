@@ -1,63 +1,51 @@
 import FsmView from "./FsmView";
-import React, { useMemo, useState } from "react";
-import styled from "@emotion/styled";
-import CodeView from "./CodeView";
-import { Box, Select } from "../atoms";
-import * as demos from "../mock";
+import React, { useState } from "react";
+import { FsmDef } from "../utils/parseStates";
+import SelectExample from "./SelectExample";
+import ContentLoader from "react-content-loader";
 
-type DemoName = keyof typeof demos;
+type Props = {
+  examples: Array<FsmDef>;
+};
 
-const codeExample =
-  "function FSM() {\n" +
-  "  const [currentState, { allowedActions, doAction }] = useFsm(states);\n" +
-  "  return (\n" +
-  "    <>\n" +
-  "      <pre>Current state: {currentState}</pre>\n" +
-  "      <pre>\n" +
-  "        Actions:\n" +
-  "        {allowedActions.size ? (\n" +
-  "          Array.from(allowedActions).map((action) => (\n" +
-  "            <button key={action} onClick={() => doAction(action)}>\n" +
-  "              {action}\n" +
-  "            </button>\n" +
-  "          ))\n" +
-  "        ) : (\n" +
-  "          <button disabled>N/A</button>\n" +
-  "        )}\n" +
-  "      </pre>\n" +
-  "    </>\n" +
-  "  );\n" +
-  "}\n";
-
-export default function () {
-  const demoNames = useMemo<Array<DemoName>>(
-    () => Object.keys(demos) as Array<DemoName>,
-    []
-  );
-
-  const [selected, setSelected] = useState<DemoName>(demoNames[0]);
+function FsmDemo({ examples }: Props) {
+  const [selected, setSelected] = useState<FsmDef>(examples[0]);
 
   return (
-    <Container>
-      <CodeView>{codeExample}</CodeView>
-      <Box>
-        <pre>
-          const states ={" "}
-          <Select
-            selected={selected}
-            options={demoNames}
-            onChange={(item) => setSelected(item)}
-          />
-        </pre>
-        <FsmView key={selected} states={demos[selected].data} />
-      </Box>
-    </Container>
+    <>
+      <pre>
+        const states ={" "}
+        <SelectExample
+          examples={examples}
+          selected={selected}
+          onChange={setSelected}
+        />
+      </pre>
+      {selected && <FsmView key={selected.name} states={selected.states} />}
+    </>
   );
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
-`;
+function Loader() {
+  return (
+    <ContentLoader
+      speed={2}
+      width={400}
+      height={400}
+      viewBox="0 0 400 400"
+      backgroundColor="#f3f3f3"
+      foregroundColor="#ecebeb"
+    >
+      <rect x="8" y="15" rx="0" ry="0" width="130" height="20" />
+      <rect x="166" y="15" rx="0" ry="0" width="130" height="20" />
+      <rect x="13" y="368" rx="0" ry="0" width="163" height="19" />
+      <rect x="230" y="353" rx="0" ry="0" width="156" height="36" />
+      <circle cx="80" cy="200" r="41" />
+      <circle cx="200" cy="200" r="41" />
+      <circle cx="330" cy="200" r="41" />
+    </ContentLoader>
+  );
+}
+
+export { Loader };
+export default FsmDemo;

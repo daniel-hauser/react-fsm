@@ -1,5 +1,5 @@
 import React from "react";
-import FsmDemo from "./components/FsmDemo";
+import FsmExample from "./components/FsmExample";
 import { Footer, Theme } from "./atoms";
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
         </h2>
       </header>
       <main>
-        <FsmDemo />
+        <FsmExample />
       </main>
       <Footer>
         Created by{" "}
