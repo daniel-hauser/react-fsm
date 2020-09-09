@@ -14,12 +14,12 @@ export default class FSM extends EventTarget {
     super();
 
     if (states.size === 0) {
-      throw new Error(`states must not be empty`);
+      throw new TypeError(`states must not be empty`);
     }
 
     if (initial !== undefined) {
       if (!states.has(initial)) {
-        throw new Error(`Initial state "${initial}" is not a valid state`);
+        throw new TypeError(`Initial state "${initial}" is not a valid state`);
       }
 
       this.#currentState = initial;
@@ -40,19 +40,17 @@ export default class FSM extends EventTarget {
     return new Set(this.#states.get(this.#currentState)?.keys());
   }
 
-  isValidAction(action: ActionName) {
-    return this.allowedActions.has(action);
-  }
-
   assertValidAction(action?: ActionName | null): asserts action {
-    if (!action || !this.isValidAction(action)) {
-      throw new Error(`State "${this.currentState}" has no "${action}" action`);
+    if (!action || !this.allowedActions.has(action)) {
+      throw new TypeError(
+        `State "${this.currentState}" has no "${action}" action`
+      );
     }
   }
 
   assertValidState(state?: StateName | null): asserts state {
     if (!state || !this.#states.has(state)) {
-      throw new Error(`State "${state}" is not valid`);
+      throw new TypeError(`State "${state}" is not valid`);
     }
   }
 

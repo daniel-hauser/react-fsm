@@ -53,6 +53,6 @@ export function Theme() {
   );
 }
 
-export { Box } from "./Box";
-export { Select } from "./Select";
-export { Footer } from "./Footer";
+export { default as Box } from "./Box";
+export { default as Select } from "./Select";
+export { default as Footer } from "./Footer";

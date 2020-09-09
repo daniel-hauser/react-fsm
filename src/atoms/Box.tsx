@@ -8,4 +8,4 @@ const Box = styled.div`
   padding: 1.25rem;
 `;
 
-export { Box };
+export default Box;

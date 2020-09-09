@@ -5,4 +5,4 @@ const Footer = styled.footer`
   padding: 1rem;
 `;
 
-export { Footer };
+export default Footer;

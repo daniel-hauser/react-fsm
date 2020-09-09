@@ -5,41 +5,41 @@ import CodeView from "./CodeView";
 import { Box, Select } from "../atoms";
 import * as demos from "../mock";
 
+type DemoName = keyof typeof demos;
+
+const codeExample =
+  "function FSM() {\n" +
+  "  const [currentState, { allowedActions, doAction }] = useFsm(states);\n" +
+  "  return (\n" +
+  "    <>\n" +
+  "      <pre>Current state: {currentState}</pre>\n" +
+  "      <pre>\n" +
+  "        Actions:\n" +
+  "        {allowedActions.size ? (\n" +
+  "          Array.from(allowedActions).map((action) => (\n" +
+  "            <button key={action} onClick={() => doAction(action)}>\n" +
+  "              {action}\n" +
+  "            </button>\n" +
+  "          ))\n" +
+  "        ) : (\n" +
+  "          <button disabled>N/A</button>\n" +
+  "        )}\n" +
+  "      </pre>\n" +
+  "    </>\n" +
+  "  );\n" +
+  "}\n";
+
 export default function () {
-  const demoNames = useMemo<Array<keyof typeof demos>>(
-    () => Object.keys(demos) as Array<keyof typeof demos>,
+  const demoNames = useMemo<Array<DemoName>>(
+    () => Object.keys(demos) as Array<DemoName>,
     []
   );
 
-  const [selected, setSelected] = useState<keyof typeof demos>(demoNames[0]);
+  const [selected, setSelected] = useState<DemoName>(demoNames[0]);
 
   return (
     <Container>
-      <CodeView>
-        {
-          /* TODO: Load from file? */
-          "function FSM() {\n" +
-            "  const [current, { allowedActions, doAction }] = useFsm(states);\n" +
-            "  return (\n" +
-            "    <>\n" +
-            "      <pre>Current state: {current}</pre>\n" +
-            "      <pre>\n" +
-            "        Actions:\n" +
-            "        {allowedActions.size ? (\n" +
-            "          Array.from(allowedActions).map((action) => (\n" +
-            "            <button key={action} onClick={() => doAction(action)}>\n" +
-            "              {action}\n" +
-            "            </button>\n" +
-            "          ))\n" +
-            "        ) : (\n" +
-            "          <button disabled>N/A</button>\n" +
-            "        )}\n" +
-            "      </pre>\n" +
-            "    </>\n" +
-            "  );\n" +
-            "}"
-        }
-      </CodeView>
+      <CodeView>{codeExample}</CodeView>
       <Box>
         <pre>
           const states ={" "}

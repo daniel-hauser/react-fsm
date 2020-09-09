@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import statesToGraph from "../utils/statesToGraph";
 import Graph from "react-graph-vis";
 import { States, StateName } from "../lib/fsm";
+import { Network } from "vis";
 
 const color = "black";
 
@@ -11,14 +12,14 @@ type Props = {
   current: StateName;
 };
 
-export default function ({ states, initial, current }: Props) {
-  const dataRef = useRef<any>(null);
+function FsmGraph({ states, current }: Props) {
+  const dataRef = useRef<Network | null>(null);
 
   const data = useMemo(() => statesToGraph(states), [states]);
 
   useEffect(() => {
     if (current) {
-      dataRef.current.selectNodes([current]);
+      dataRef.current?.selectNodes([current]);
     }
   }, [current]);
 
@@ -64,8 +65,12 @@ export default function ({ states, initial, current }: Props) {
           physics: { enabled: true },
           layout: { randomSeed: 1 },
         }}
-        getNetwork={(data) => (dataRef.current = data)}
+        getNetwork={(data) => {
+          dataRef.current = data;
+        }}
       />
     </div>
   );
 }
+
+export default FsmGraph;

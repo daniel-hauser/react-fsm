@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-// import styled from "@emotion/styled";
 
 type Props<T> = {
   selected?: T | null;
@@ -17,12 +16,12 @@ function Select<T extends string>({
   return (
     <select onChange={(e) => onChange(e.target.value as T)}>
       {options.map((item) => (
-        <option selected={item === selected}>
-          {renderItem?.(item) || item}
+        <option key={item} selected={item === selected}>
+          {renderItem?.(item) ?? item}
         </option>
       ))}
     </select>
   );
 }
 
-export { Select };
+export default Select;

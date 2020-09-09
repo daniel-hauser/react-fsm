@@ -9,7 +9,7 @@ export default function statesToGraph(states: States) {
     })),
     edges: Array.from(states.entries())
       .filter(([_, actions]) => actions !== null)
-      .flatMap(([state, actions], i) => {
+      .flatMap(([state, actions]) => {
         return Array.from(actions!.entries()).map(([action, target]) => ({
           from: state,
           to: target,

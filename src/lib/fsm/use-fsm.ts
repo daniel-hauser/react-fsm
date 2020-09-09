@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import FSM, { States, ActionName, StateChangedEvent, StateName } from "./FSM";
+import FSM, { ActionName, StateChangedEvent, StateName, States } from "./FSM";
 
 type FsmHookResult = [StateName, Pick<FSM, "doAction" | "allowedActions">];
 

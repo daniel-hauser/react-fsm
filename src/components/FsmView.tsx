@@ -13,8 +13,13 @@ const ActionButton = styled.button`
   }
 `;
 
-export default function ({ states }: { states: States }) {
+type Props = {
+  states: States;
+};
+
+export default function ({ states }: Props) {
   const [current, { allowedActions, doAction }] = useFsm(states);
+
   return (
     <>
       <FsmGraph states={states} current={current} />
@@ -29,7 +34,7 @@ export default function ({ states }: { states: States }) {
               </ActionButton>
             ))
           ) : (
-            <ActionButton disabled>N/A</ActionButton>
+            <ActionButton disabled>No actions allowed</ActionButton>
           )}
         </pre>
       </Actions>

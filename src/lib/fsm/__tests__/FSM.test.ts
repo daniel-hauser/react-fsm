@@ -3,7 +3,7 @@ import FSM, { StateChangedEvent } from "../index";
 describe("Initial state", () => {
   test("Must be a valid state", () => {
     expect(() => new FSM(new Map([["state a", null]]), "state b")).toThrow(
-      /is not a valid state/
+      'Initial state "state b" is not a valid state'
     );
     expect(
       () => new FSM(new Map([["state a", null]]), "state a")
@@ -40,12 +40,16 @@ describe("Lifecycle", () => {
       ]),
       "state a"
     );
-    expect(() => fsm.doAction("goto a")).toThrow();
+    expect(() => fsm.doAction("goto a")).toThrow(
+      'State "state a" has no "goto a" action'
+    );
 
     expect(() => fsm.doAction("goto b")).not.toThrow();
     expect(fsm.currentState).toBe("state b");
 
-    expect(() => fsm.doAction("goto a")).toThrow();
+    expect(() => fsm.doAction("goto a")).toThrow(
+      'State "state b" has no "goto a" action'
+    );
   });
 
   test("Target state must exist", () => {
@@ -54,7 +58,9 @@ describe("Lifecycle", () => {
       "state a"
     );
 
-    expect(() => fsm.doAction("goto b")).toThrow();
+    expect(() => fsm.doAction("goto b")).toThrow(
+      'State "state b" is not valid'
+    );
   });
 
   test("State is updated correctly", () => {
