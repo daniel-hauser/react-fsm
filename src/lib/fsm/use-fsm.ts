@@ -18,7 +18,7 @@ function useFsm(states: States, initialState?: StateName): FsmHookResult {
 
   useEffect(() => {
     fsm.addEventListener(FSM.EVENTS.stateChanged, onChange);
-    return () => fsm.addEventListener(FSM.EVENTS.stateChanged, onChange);
+    return () => fsm.removeEventListener(FSM.EVENTS.stateChanged, onChange);
   }, [fsm, onChange]);
 
   const { allowedActions } = fsm;
